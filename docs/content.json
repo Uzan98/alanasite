@@ -120,5 +120,30 @@
   },
   "footer": {
     "textoExtra": "Atendimento odontológico especializado para bebês, crianças e adolescentes."
+  },
+  "instagram": {
+    "usuario": "dra.alanalibrelon",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/EXEMPLO1/",
+        "imagem": "images/uploads/fotoPerfil-1783137771451.jpg",
+        "legenda": "Primeiro post de exemplo — substitua pelo link real do Instagram"
+      },
+      {
+        "url": "https://www.instagram.com/p/EXEMPLO2/",
+        "imagem": "images/uploads/fotoSobre-1783138687009.jpg",
+        "legenda": "Segundo post de exemplo — substitua pelo link real do Instagram"
+      },
+      {
+        "url": "https://www.instagram.com/p/EXEMPLO3/",
+        "imagem": "images/uploads/fotoPerfil-1783137771451.jpg",
+        "legenda": "Terceiro post de exemplo — substitua pelo link real do Instagram"
+      },
+      {
+        "url": "https://www.instagram.com/p/EXEMPLO4/",
+        "imagem": "images/uploads/fotoSobre-1783138687009.jpg",
+        "legenda": "Quarto post de exemplo — substitua pelo link real do Instagram"
+      }
+    ]
   }
 }

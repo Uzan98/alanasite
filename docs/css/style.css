@@ -548,6 +548,184 @@ section { padding: 72px 0; }
 .msg-formulario.erro { color: #a33a3a; display: block; }
 
 /* ===================================================================
+   SEÇÃO INSTAGRAM
+   =================================================================== */
+.secao-instagram {
+  background: linear-gradient(135deg, #fff5f8 0%, #fce8f0 50%, #f8f0ff 100%);
+  padding: 80px 0 70px;
+  overflow: hidden;
+}
+
+.insta-perfil {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+  justify-content: center;
+}
+
+.insta-avatar-link { text-decoration: none; flex-shrink: 0; }
+
+.insta-avatar-anel {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.insta-avatar-anel:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(220,39,67,.3); }
+
+.insta-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  display: block;
+}
+
+.insta-info { display: flex; flex-direction: column; gap: 6px; }
+
+.insta-arroba {
+  font-family: var(--fonte-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--grafite-suave);
+  margin: 0;
+}
+
+.insta-bio {
+  font-size: 0.88rem;
+  color: var(--texto-suave);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.insta-btn-seguir {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, #e6683c, #dc2743, #bc1888);
+  transition: opacity 0.2s, transform 0.2s;
+  width: fit-content;
+}
+.insta-btn-seguir:hover { opacity: 0.88; transform: translateY(-2px); }
+
+.insta-titulo-bloco { text-align: center; margin-bottom: 36px; }
+
+.insta-titulo {
+  font-family: var(--fonte-display);
+  font-size: 2rem;
+  color: var(--grafite-suave);
+  margin: 0 0 8px;
+}
+
+.insta-subtitulo {
+  color: var(--texto-suave);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Carrossel */
+.insta-carrossel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.insta-carrossel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 10px 4px 16px;
+  flex: 1;
+}
+.insta-carrossel::-webkit-scrollbar { display: none; }
+
+.insta-card {
+  flex-shrink: 0;
+  width: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(180,80,120,.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+.insta-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(180,80,120,.22);
+}
+
+.insta-card-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+.insta-card-body {
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.insta-card-legenda {
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+
+.insta-card-ver {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--rosa-vivo);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.insta-card-ver svg { transition: transform 0.2s; }
+.insta-card:hover .insta-card-ver svg { transform: translateX(4px); }
+
+/* Botões de navegação */
+.insta-nav {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(180,80,120,.18);
+  color: var(--rosa-vivo);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 2;
+}
+.insta-nav:hover { background: var(--rosa-vivo); color: #fff; transform: scale(1.08); }
+
+/* ===================================================================
    RODAPÉ
    =================================================================== */
 footer {

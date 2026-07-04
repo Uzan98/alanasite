@@ -228,6 +228,56 @@ function popularFooter(c) {
 
 // ---------- Interatividade ----------
 
+function popularInstagram(c) {
+  if (!c.instagram || !c.instagram.posts) return;
+
+  var carrossel = document.getElementById('instaCarrossel');
+  if (!carrossel) return;
+
+  carrossel.innerHTML = c.instagram.posts.map(function(post) {
+    return (
+      '<a class="insta-card" href="' + post.url + '" target="_blank" rel="noopener">' +
+        '<img class="insta-card-img" src="' + post.imagem + '" alt="Post do Instagram" loading="lazy">' +
+        '<div class="insta-card-body">' +
+          '<p class="insta-card-legenda">' + post.legenda + '</p>' +
+          '<span class="insta-card-ver">' +
+            'Ver no Instagram ' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+          '</span>' +
+        '</div>' +
+      '</a>'
+    );
+  }).join('');
+
+  // Atualiza link e arroba do perfil
+  if (c.instagram.usuario) {
+    var url = 'https://instagram.com/' + c.instagram.usuario;
+    document.querySelectorAll('.insta-avatar-link, .insta-btn-seguir').forEach(function(el) {
+      el.href = url;
+    });
+    var arroba = document.querySelector('.insta-arroba');
+    if (arroba) arroba.textContent = '@' + c.instagram.usuario;
+  }
+
+  // Foto de perfil no avatar do Instagram
+  var avatarImg = document.querySelector('.insta-avatar');
+  if (avatarImg && c.identidade && c.identidade.fotoPerfil) {
+    avatarImg.src = c.identidade.fotoPerfil;
+  }
+
+  // Botões de navegação do carrossel
+  var btnPrev = document.querySelector('.insta-nav-prev');
+  var btnNext = document.querySelector('.insta-nav-next');
+  var scrollAmount = 260;
+
+  if (btnPrev) btnPrev.addEventListener('click', function() {
+    carrossel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+  if (btnNext) btnNext.addEventListener('click', function() {
+    carrossel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+}
+
 function inicializarInteratividade(c) {
   // Menu mobile
   var botaoMenu = document.getElementById('botaoMenu');
@@ -276,6 +326,7 @@ async function init() {
   popularFaq(c);
   popularContato(c);
   popularFooter(c);
+  popularInstagram(c);
   inicializarInteratividade(c);
 }
 
