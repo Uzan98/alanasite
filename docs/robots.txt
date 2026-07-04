@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /api
 
-Sitemap: https://uzan98.github.io/alanasite/sitemap.xml
+Sitemap: https://draalanalibrelon.com.br/sitemap.xml
