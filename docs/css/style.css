@@ -653,6 +653,19 @@ section { padding: 72px 0; }
 }
 .insta-carrossel::-webkit-scrollbar { display: none; }
 
+.insta-embed-item {
+  flex-shrink: 0;
+  width: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(180,80,120,.12);
+}
+
+.insta-embed-item .instagram-media {
+  border-radius: 16px !important;
+  margin: 0 !important;
+}
+
 .insta-card {
   flex-shrink: 0;
   width: 240px;

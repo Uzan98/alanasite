@@ -249,15 +249,23 @@
       <p class="insta-subtitulo">Dicas, momentos do consultório e muito carinho por lá 💕</p>
     </div>
 
-    <!-- Carrossel de posts -->
+    <!-- Carrossel de posts (embeds nativos do Instagram) -->
     <div class="insta-carrossel-wrapper">
-      <button class="insta-nav insta-nav-prev" aria-label="Post anterior">
+      <button class="insta-nav insta-nav-prev" aria-label="Post anterior" onclick="document.getElementById('instaCarrossel').scrollBy({left:-360,behavior:'smooth'})">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
       <div class="insta-carrossel" id="instaCarrossel">
-        <!-- Posts inseridos pelo JavaScript -->
+
+        <div class="insta-embed-item">
+          <blockquote class="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/p/DaV-aLRAa9S/"
+            data-instgrm-version="14"
+            style="max-width:320px; min-width:280px; width:100%; margin:0;">
+          </blockquote>
+        </div>
+
       </div>
-      <button class="insta-nav insta-nav-next" aria-label="Próximo post">
+      <button class="insta-nav insta-nav-next" aria-label="Próximo post" onclick="document.getElementById('instaCarrossel').scrollBy({left:360,behavior:'smooth'})">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
       </button>
     </div>
@@ -310,5 +318,6 @@
 </a>
 
 <script src="js/main.js"></script>
+<script async src="https://www.instagram.com/embed.js"></script>
 </body>
 </html>
