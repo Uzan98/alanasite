@@ -9,7 +9,7 @@
   "identidade": {
     "nome": "Dra. Alana Chineider Librelon",
     "titulo": "• Cirurgiã-Dentista • Foco em Odontopediatria",
-    "croNumero": "CRO-XX 00000",
+    "croNumero": "CRO-17 9122",
     "fotoPerfil": "images/uploads/fotoPerfil-1783137771451.jpg",
     "fotoSobre": "images/uploads/fotoSobre-1783138687009.jpg"
   },
@@ -22,7 +22,7 @@
   },
   "sobre": {
     "titulo": "Quem cuida do sorriso do seu filho",
-    "texto": "Sou a Dra. Alana Chineider Librelon, cirurgiã-dentista com foco em odontopediatria. Acredito que a primeira experiência de uma criança no consultório dentário define a relação dela com o cuidado bucal para o resto da vida — por isso, cada consulta aqui é pensada para ser tranquila, lúdica e no tempo de cada paciente. Atendo desde a primeira consulta do bebê até a adolescência, sempre com uma conversa aberta com os pais e responsáveis.",
+    "texto": "Sou a Dra. Alana Chineider Librelon, cirurgiã-dentista com foco em odontopediatria. Acredito que a primeira experiência de uma criança no consultório odontológico define a relação dela com o cuidado bucal para o resto da vida — por isso, cada consulta aqui é pensada para ser tranquila, lúdica e no tempo de cada paciente. Atendo desde a primeira consulta do bebê até a adolescência, sempre com uma conversa aberta com os pais e responsáveis.",
     "credenciais": [
       "Graduação em Odontologia",
       "Foco em Odontopediatria",
@@ -42,7 +42,7 @@
       "icone": "escova"
     },
     {
-      "titulo": "Tratamento de cáries",
+      "titulo": "Tratamento de lesões de cárie",
       "descricao": "Restaurações realizadas com técnicas suaves, priorizando o conforto e a confiança da criança.",
       "icone": "dente"
     },
