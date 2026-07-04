@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#F8CBDA"/>
+  <circle cx="200" cy="160" r="70" fill="#FFFBF8"/>
+  <path d="M120 340c10-70 60-110 80-110s70 40 80 110" fill="#FFFBF8"/>
+  <text x="200" y="380" text-anchor="middle" font-family="Nunito, sans-serif" font-size="16" fill="#C15D77">Envie a foto pelo painel admin</text>
+</svg>

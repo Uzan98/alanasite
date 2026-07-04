@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "siteTitle": "Dra. Alana Chineider Librelon | Odontopediatria",
+    "metaDescription": "Dra. Alana Chineider Librelon, cirurgiã-dentista especializada em odontopediatria. Atendimento humanizado para bebês, crianças e adolescentes em São José dos Campos.",
+    "keywords": "odontopediatra, dentista infantil, odontopediatria, dentista de bebê, dentista para crianças, Dra. Alana Chineider Librelon",
+    "cidade": "São José dos Campos",
+    "estado": "SP"
+  },
+  "identidade": {
+    "nome": "Dra. Alana Chineider Librelon",
+    "titulo": "• Cirurgiã-Dentista • Foco em Odontopediatria",
+    "croNumero": "CRO-XX 00000",
+    "fotoPerfil": "images/uploads/fotoPerfil-1783137771451.jpg",
+    "fotoSobre": "images/uploads/fotoSobre-1783138687009.jpg"
+  },
+  "hero": {
+    "eyebrow": "Odontopediatria com carinho",
+    "titulo": "Sorrisos pequenos cuidados com toda a atenção do mundo",
+    "subtitulo": "Atendimento odontológico para bebês, crianças e adolescentes, em um ambiente pensado para acolher — e nunca assustar.",
+    "textoBotaoPrimario": "Agendar consulta",
+    "textoBotaoSecundario": "Conhecer a Dra. Alana"
+  },
+  "sobre": {
+    "titulo": "Quem cuida do sorriso do seu filho",
+    "texto": "Sou a Dra. Alana Chineider Librelon, cirurgiã-dentista com foco em odontopediatria. Acredito que a primeira experiência de uma criança no consultório dentário define a relação dela com o cuidado bucal para o resto da vida — por isso, cada consulta aqui é pensada para ser tranquila, lúdica e no tempo de cada paciente. Atendo desde a primeira consulta do bebê até a adolescência, sempre com uma conversa aberta com os pais e responsáveis.",
+    "credenciais": [
+      "Graduação em Odontologia",
+      "Foco em Odontopediatria",
+      "Atendimento humanizado e sem pressa",
+      "Consultório preparado para o público infantil"
+    ]
+  },
+  "servicos": [
+    {
+      "titulo": "Primeira consulta do bebê",
+      "descricao": "Avaliação preventiva desde a erupção dos primeiros dentinhos, com orientação completa para os pais.",
+      "icone": "mamadeira"
+    },
+    {
+      "titulo": "Prevenção e profilaxia",
+      "descricao": "Limpeza, aplicação de flúor e orientação de higiene bucal adaptada para cada fase do crescimento.",
+      "icone": "escova"
+    },
+    {
+      "titulo": "Tratamento de cáries",
+      "descricao": "Restaurações realizadas com técnicas suaves, priorizando o conforto e a confiança da criança.",
+      "icone": "dente"
+    },
+    {
+      "titulo": "Traumatismo dental",
+      "descricao": "Atendimento a quedas e batidas nos dentinhos, com acolhimento rápido em momentos de susto.",
+      "icone": "escudo"
+    },
+    {
+      "titulo": "Ortodontia preventiva e interceptiva",
+      "descricao": "Acompanhamento do desenvolvimento da arcada dentária para identificar e antecipar problemas.",
+      "icone": "aparelho"
+    },
+    {
+      "titulo": "Acompanhamento para adolescentes",
+      "descricao": "Continuidade do cuidado bucal também na fase da adolescência, com autonomia e diálogo.",
+      "icone": "estrela"
+    }
+  ],
+  "diferenciais": [
+    {
+      "titulo": "Consultório lúdico",
+      "descricao": "Ambiente colorido e acolhedor, pensado para deixar os pequenos à vontade."
+    },
+    {
+      "titulo": "Sem pressa, sem trauma",
+      "descricao": "Cada criança tem seu próprio tempo de adaptação — e ele é respeitado aqui."
+    },
+    {
+      "titulo": "Pais bem informados",
+      "descricao": "Orientações claras sobre higiene, alimentação e hábitos bucais em cada fase."
+    }
+  ],
+  "depoimentos": [
+    {
+      "nome": "Mãe da Sofia, 4 anos",
+      "texto": "A Sofia tinha muito medo de dentista e hoje sai da consulta sorrindo. A Dra. Alana tem um jeito incrível com as crianças."
+    },
+    {
+      "nome": "Pai do Théo, 7 anos",
+      "texto": "Atendimento super atencioso, explicou tudo com calma e o Théo ficou tranquilo do início ao fim."
+    },
+    {
+      "nome": "Mãe da Helena, 2 anos",
+      "texto": "Levei a Helena para a primeira consulta e me senti acolhida também. Recomendo de olhos fechados."
+    }
+  ],
+  "faq": [
+    {
+      "pergunta": "Com que idade devo levar meu filho ao dentista pela primeira vez?",
+      "resposta": "O ideal é que a primeira consulta aconteça já na erupção dos primeiros dentinhos, por volta dos 6 meses a 1 ano de idade."
+    },
+    {
+      "pergunta": "Meu filho tem muito medo. Como funciona a primeira consulta?",
+      "resposta": "A primeira consulta é sempre de aproximação: sem pressa, com conversa, brincadeira e no tempo da criança. O objetivo é criar confiança antes de qualquer procedimento."
+    },
+    {
+      "pergunta": "Vocês atendem convênio odontológico?",
+      "resposta": "Edite esta resposta no arquivo content.json com as informações sobre convênios aceitos ou atendimento particular."
+    },
+    {
+      "pergunta": "Como faço para agendar uma consulta?",
+      "resposta": "Você pode agendar pelo WhatsApp ou telefone — basta clicar no botão verde que aparece na página!"
+    }
+  ],
+  "contato": {
+    "telefone": "(12) 98220-3216",
+    "whatsapp": "5512982203216",
+    "email": "lana.chlib@gmail.com",
+    "endereco": "Rua Exemplo, 123 — Bairro, Sua Cidade - UF",
+    "horario": "Segunda a sexta, das 8h às 18h",
+    "instagram": "https://instagram.com/dra.alanalibrelon",
+    "facebook": "",
+    "mapaEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.79830060716!2d-45.86303822543759!3d-23.177560547602756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc4bcebc4138e1%3A0x823bec14c0942d3e!2sCl%C3%ADnica%20Odontologia%20Vera%20Tenguan!5e0!3m2!1spt-BR!2sbr!4v1783172397147!5m2!1spt-BR!2sbr"
+  },
+  "footer": {
+    "textoExtra": "Atendimento odontológico especializado para bebês, crianças e adolescentes."
+  }
+}

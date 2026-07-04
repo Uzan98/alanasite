@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidade</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="cabecalho">
+  <div class="container">
+    <a href="index.html" class="marca"><span id="nomeDra">Consultório</span></a>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container" style="max-width:720px; padding-top: 3rem; padding-bottom: 3rem;">
+      <h1>Política de Privacidade</h1>
+      <p>Esta página explica, de forma simples, como as informações de contato enviadas por este site são tratadas.</p>
+      <h3>Quais dados coletamos</h3>
+      <p>Coletamos apenas o nome, telefone e a mensagem enviada via WhatsApp, com a finalidade exclusiva de responder à sua solicitação de agendamento ou dúvida.</p>
+      <h3>Como usamos seus dados</h3>
+      <p>As informações são usadas apenas para retorno de contato pelo consultório de <span id="nomeConsultorio"></span> e não são compartilhadas com terceiros nem usadas para fins de marketing sem sua autorização.</p>
+      <h3>Contato sobre seus dados</h3>
+      <p>Para esclarecer dúvidas, entre em contato pelo e-mail <span id="emailContato"></span>.</p>
+      <p><a href="index.html">← Voltar para o site</a></p>
+    </div>
+  </section>
+</main>
+<script>
+  fetch('content.json')
+    .then(function(r) { return r.json(); })
+    .then(function(c) {
+      document.title = 'Política de Privacidade | ' + c.identidade.nome;
+      document.getElementById('nomeDra').textContent = c.identidade.nome;
+      document.getElementById('nomeConsultorio').textContent = c.identidade.nome;
+      document.getElementById('emailContato').textContent = c.contato.email;
+    })
+    .catch(function() {});
+</script>
+</body>
+</html>
