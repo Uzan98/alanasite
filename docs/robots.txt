@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /api
 
-Sitemap: /sitemap.xml
+Sitemap: https://uzan98.github.io/alanasite/sitemap.xml
