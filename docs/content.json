@@ -101,7 +101,7 @@
     },
     {
       "pergunta": "Vocês atendem convênio odontológico?",
-      "resposta": "Edite esta resposta no arquivo content.json com as informações sobre convênios aceitos ou atendimento particular."
+      "resposta": "Realizo somente atendimentos no particular."
     },
     {
       "pergunta": "Como faço para agendar uma consulta?",
@@ -112,7 +112,7 @@
     "telefone": "(12) 98220-3216",
     "whatsapp": "5512982203216",
     "email": "lana.chlib@gmail.com",
-    "endereco": "Rua Exemplo, 123 — Bairro, Sua Cidade - UF",
+    "endereco": "Av. Professor Sebastião Paulo de Toledo Pontes, 185 - Vila Industrial, São José dos Campos - SP, 12220-380",
     "horario": "Segunda a sexta, das 8h às 18h",
     "instagram": "https://instagram.com/dra.alanalibrelon",
     "facebook": "",
