@@ -125,24 +125,24 @@
     "usuario": "dra.alanalibrelon",
     "posts": [
       {
-        "url": "https://www.instagram.com/p/EXEMPLO1/",
-        "imagem": "images/uploads/fotoPerfil-1783137771451.jpg",
-        "legenda": "Primeiro post de exemplo — substitua pelo link real do Instagram"
+        "url": "https://www.instagram.com/p/DaV-aLRAa9S/",
+        "imagem": "images/uploads/post-insta-1.jpg",
+        "legenda": "A importância da consulta preventiva infantil e os primeiros cuidados com a higiene bucal."
       },
       {
-        "url": "https://www.instagram.com/p/EXEMPLO2/",
-        "imagem": "images/uploads/fotoSobre-1783138687009.jpg",
-        "legenda": "Segundo post de exemplo — substitua pelo link real do Instagram"
+        "url": "https://www.instagram.com/p/DaV-aLRAa9S/?img_index=6",
+        "imagem": "images/uploads/post-insta-2.jpg",
+        "legenda": "Como tornar a ida ao dentista divertida e livre de traumas para os pequenos."
       },
       {
-        "url": "https://www.instagram.com/p/EXEMPLO3/",
-        "imagem": "images/uploads/fotoPerfil-1783137771451.jpg",
-        "legenda": "Terceiro post de exemplo — substitua pelo link real do Instagram"
+        "url": "https://www.instagram.com/p/DaV-aLRAa9S/",
+        "imagem": "images/uploads/post-insta-3.jpg",
+        "legenda": "Dicas práticas de alimentação e escovação em cada fase do crescimento infantil."
       },
       {
-        "url": "https://www.instagram.com/p/EXEMPLO4/",
-        "imagem": "images/uploads/fotoSobre-1783138687009.jpg",
-        "legenda": "Quarto post de exemplo — substitua pelo link real do Instagram"
+        "url": "https://www.instagram.com/p/DaV-aLRAa9S/",
+        "imagem": "images/uploads/post-insta-4.jpg",
+        "legenda": "A importância do acompanhamento odontológico preventivo desde a erupção do primeiro dentinho."
       }
     ]
   }
