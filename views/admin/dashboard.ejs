@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin | Dra. Alana</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <header class="topo-admin">
+    <div class="marca-admin">
+      <svg viewBox="0 0 40 40" fill="none" width="32" height="32">
+        <path d="M20 6c-6 0-10 3.5-10 10 0 6.5 2.5 10 3.5 15 .5 2.8 3.6 2.6 4.1 0 .5-2.6 1-5 2.4-5s1.9 2.4 2.4 5c.5 2.6 3.6 2.8 4.1 0C27.5 26 30 22.5 30 16c0-6.5-4-10-10-10Z" fill="#EE93AF"/>
+      </svg>
+      <span>Painel Admin</span>
+    </div>
+    <div class="acoes-topo">
+      <a href="/admin/blog" class="botao-admin secundario">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Gerenciar Blog
+      </a>
+      <a href="/" class="botao-admin secundario" target="_blank">Ver site</a>
+      <form action="/admin/logout" method="POST" style="margin:0">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <button type="submit" class="botao-admin sair">Sair</button>
+      </form>
+    </div>
+  </header>
+
+  <div class="layout-admin">
+
+    <!-- Menu lateral -->
+    <nav class="menu-lateral">
+      <a href="#secao-fotos">📸 Fotos</a>
+      <a href="#secao-identidade">🪪 Identidade</a>
+      <a href="#secao-hero">🌟 Capa</a>
+      <a href="#secao-sobre">👩‍⚕️ Sobre</a>
+      <a href="#secao-servicos">⚙️ Serviços</a>
+      <a href="#secao-diferenciais">✨ Diferenciais</a>
+      <a href="#secao-depoimentos">💬 Depoimentos</a>
+      <a href="#secao-faq">❓ FAQ</a>
+      <a href="#secao-contato">📞 Contato</a>
+      <a href="#secao-seo">🔍 SEO</a>
+      <a href="/admin/blog" style="background:var(--rosa-doce); color:var(--rosa-profundo); margin-top:12px">📝 Gerenciar Blog</a>
+    </nav>
+
+    <!-- Conteúdo -->
+    <main class="conteudo-admin">
+
+      <% if (sucesso) { %>
+        <div class="alerta-sucesso">✅ Alterações salvas com sucesso!</div>
+      <% } %>
+
+      <form id="formPrincipal" action="/admin/save-content" method="POST" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <input type="hidden" name="credenciais" id="hiddenCredenciais">
+        <input type="hidden" name="servicos" id="hiddenServicos">
+        <input type="hidden" name="diferenciais" id="hiddenDiferenciais">
+        <input type="hidden" name="depoimentos" id="hiddenDepoimentos">
+        <input type="hidden" name="faq" id="hiddenFaq">
+
+        <!-- FOTOS -->
+        <div class="painel" id="secao-fotos">
+          <h2>Fotos</h2>
+          <div class="grid-fotos">
+            <div class="upload-foto">
+              <p style="font-weight:700; margin-bottom:8px">Foto de perfil (hero)</p>
+              <img id="previewPerfil" src="<%= content.identidade?.fotoPerfil || '' %>" alt="Foto de perfil">
+              <label class="label-arquivo">
+                <input type="file" id="uploadPerfil" accept="image/*" data-campo="fotoPerfil">
+                Trocar foto de perfil
+              </label>
+            </div>
+            <div class="upload-foto">
+              <p style="font-weight:700; margin-bottom:8px">Foto — seção Sobre</p>
+              <img id="previewSobre" src="<%= content.identidade?.fotoSobre || '' %>" alt="Foto sobre">
+              <label class="label-arquivo">
+                <input type="file" id="uploadSobre" accept="image/*" data-campo="fotoSobre">
+                Trocar foto "Sobre"
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- IDENTIDADE -->
+        <div class="painel" id="secao-identidade">
+          <h2>Identidade</h2>
+          <div class="linha-campos">
+            <div class="campo-admin">
+              <label>Nome completo</label>
+              <input type="text" name="nome" value="<%= content.identidade?.nome || '' %>">
+            </div>
+            <div class="campo-admin">
+              <label>Título / especialidade</label>
+              <input type="text" name="titulo" value="<%= content.identidade?.titulo || '' %>">
+            </div>
+          </div>
+          <div class="campo-admin">
+            <label>Número do CRO</label>
+            <input type="text" name="croNumero" value="<%= content.identidade?.croNumero || '' %>">
+          </div>
+        </div>
+
+        <!-- HERO -->
+        <div class="painel" id="secao-hero">
+          <h2>Capa (Hero)</h2>
+          <div class="campo-admin">
+            <label>Eyebrow (texto pequeno acima do título)</label>
+            <input type="text" name="heroEyebrow" value="<%= content.hero?.eyebrow || '' %>">
+          </div>
+          <div class="campo-admin">
+            <label>Título principal</label>
+            <input type="text" name="heroTitulo" value="<%= content.hero?.titulo || '' %>">
+          </div>
+          <div class="campo-admin">
+            <label>Subtítulo</label>
+            <textarea name="heroSubtitulo" rows="3"><%= content.hero?.subtitulo || '' %></textarea>
+          </div>
+          <div class="linha-campos">
+            <div class="campo-admin">
+              <label>Texto botão primário</label>
+              <input type="text" name="heroBotaoPrimario" value="<%= content.hero?.textoBotaoPrimario || '' %>">
+            </div>
+            <div class="campo-admin">
+              <label>Texto botão secundário</label>
+              <input type="text" name="heroBotaoSecundario" value="<%= content.hero?.textoBotaoSecundario || '' %>">
+            </div>
+          </div>
+        </div>
+
+        <!-- SOBRE -->
+        <div class="painel" id="secao-sobre">
+          <h2>Sobre a Dra. Alana</h2>
+          <div class="campo-admin">
+            <label>Título da seção</label>
+            <input type="text" name="sobreTitulo" value="<%= content.sobre?.titulo || '' %>">
+          </div>
+          <div class="campo-admin">
+            <label>Texto de apresentação</label>
+            <textarea name="sobreTexto" rows="5"><%= content.sobre?.texto || '' %></textarea>
+          </div>
+          <div>
+            <span class="label-lista">Credenciais / diferenciais</span>
+            <div class="lista-repetivel" id="listaCredenciais">
+              <% (content.sobre?.credenciais || []).forEach(function(c) { %>
+                <div class="item-repetivel">
+                  <input type="text" class="campo-credencial" value="<%= c %>">
+                  <button type="button" class="botao-remover">✕</button>
+                </div>
+              <% }); %>
+            </div>
+            <button type="button" class="botao-adicionar" data-add="credencial">+ Adicionar credencial</button>
+          </div>
+        </div>
+
+        <!-- SERVIÇOS -->
+        <div class="painel" id="secao-servicos">
+          <h2>Serviços</h2>
+          <div class="lista-repetivel-cartoes" id="listaServicos">
+            <% (content.servicos || []).forEach(function(s) { %>
+              <div class="cartao-repetivel" data-tipo="servico">
+                <div class="linha-campos">
+                  <div class="campo-admin">
+                    <label>Título</label>
+                    <input type="text" class="s-titulo" value="<%= s.titulo || '' %>">
+                  </div>
+                  <div class="campo-admin">
+                    <label>Ícone</label>
+                    <select class="s-icone">
+                      <% ['mamadeira','escova','dente','escudo','aparelho','estrela'].forEach(function(ic) { %>
+                        <option value="<%= ic %>" <%= ic === s.icone ? 'selected' : '' %>><%= ic %></option>
+                      <% }); %>
+                    </select>
+                  </div>
+                </div>
+                <div class="campo-admin">
+                  <label>Descrição</label>
+                  <textarea class="s-descricao" rows="2"><%= s.descricao || '' %></textarea>
+                </div>
+                <button type="button" class="botao-remover-cartao">Remover serviço</button>
+              </div>
+            <% }); %>
+          </div>
+          <button type="button" class="botao-adicionar" data-add="servico">+ Adicionar serviço</button>
+        </div>
+
+        <!-- DIFERENCIAIS -->
+        <div class="painel" id="secao-diferenciais">
+          <h2>Diferenciais</h2>
+          <div class="lista-repetivel-cartoes" id="listaDiferenciais">
+            <% (content.diferenciais || []).forEach(function(d) { %>
+              <div class="cartao-repetivel" data-tipo="diferencial">
+                <div class="campo-admin">
+                  <label>Título</label>
+                  <input type="text" class="d-titulo" value="<%= d.titulo || '' %>">
+                </div>
+                <div class="campo-admin">
+                  <label>Descrição</label>
+                  <textarea class="d-descricao" rows="2"><%= d.descricao || '' %></textarea>
+                </div>
+                <button type="button" class="botao-remover-cartao">Remover</button>
+              </div>
+            <% }); %>
+          </div>
+          <button type="button" class="botao-adicionar" data-add="diferencial">+ Adicionar diferencial</button>
+        </div>
+
+        <!-- DEPOIMENTOS -->
+        <div class="painel" id="secao-depoimentos">
+          <h2>Depoimentos</h2>
+          <div class="lista-repetivel-cartoes" id="listaDepoimentos">
+            <% (content.depoimentos || []).forEach(function(dep) { %>
+              <div class="cartao-repetivel" data-tipo="depoimento">
+                <div class="campo-admin">
+                  <label>Assinatura</label>
+                  <input type="text" class="dep-nome" value="<%= dep.nome || '' %>">
+                </div>
+                <div class="campo-admin">
+                  <label>Depoimento</label>
+                  <textarea class="dep-texto" rows="3"><%= dep.texto || '' %></textarea>
+                </div>
+                <button type="button" class="botao-remover-cartao">Remover</button>
+              </div>
+            <% }); %>
+          </div>
+          <button type="button" class="botao-adicionar" data-add="depoimento">+ Adicionar depoimento</button>
+        </div>
+
+        <!-- FAQ -->
+        <div class="painel" id="secao-faq">
+          <h2>Dúvidas frequentes (FAQ)</h2>
+          <div class="lista-repetivel-cartoes" id="listaFaq">
+            <% (content.faq || []).forEach(function(f) { %>
+              <div class="cartao-repetivel" data-tipo="faq">
+                <div class="campo-admin">
+                  <label>Pergunta</label>
+                  <input type="text" class="faq-pergunta" value="<%= f.pergunta || '' %>">
+                </div>
+                <div class="campo-admin">
+                  <label>Resposta</label>
+                  <textarea class="faq-resposta" rows="3"><%= f.resposta || '' %></textarea>
+                </div>
+                <button type="button" class="botao-remover-cartao">Remover</button>
+              </div>
+            <% }); %>
+          </div>
+          <button type="button" class="botao-adicionar" data-add="faq">+ Adicionar pergunta</button>
+        </div>
+
+        <!-- CONTATO -->
+        <div class="painel" id="secao-contato">
+          <h2>Contato</h2>
+          <div class="linha-campos">
+            <div class="campo-admin">
+              <label>Telefone (exibido no site)</label>
+              <input type="text" name="telefone" value="<%= content.contato?.telefone || '' %>">
+            </div>
+            <div class="campo-admin">
+              <label>WhatsApp (só números, com DDI)</label>
+              <input type="text" name="whatsapp" value="<%= content.contato?.whatsapp || '' %>" placeholder="5512982203216">
+            </div>
+          </div>
+          <div class="linha-campos">
+            <div class="campo-admin">
+              <label>E-mail</label>
+              <input type="email" name="email" value="<%= content.contato?.email || '' %>">
+            </div>
+            <div class="campo-admin">
+              <label>Instagram (URL completa)</label>
+              <input type="url" name="instagram" value="<%= content.contato?.instagram || '' %>">
+            </div>
+          </div>
+          <div class="campo-admin">
+            <label>Endereço</label>
+            <input type="text" name="endereco" value="<%= content.contato?.endereco || '' %>">
+          </div>
+          <div class="campo-admin">
+            <label>Horário de atendimento</label>
+            <input type="text" name="horario" value="<%= content.contato?.horario || '' %>">
+          </div>
+          <div class="campo-admin">
+            <label>Link do mapa incorporado (Google Maps embed src=&quot;...&quot;)</label>
+            <textarea name="mapaEmbedUrl" rows="3"><%= content.contato?.mapaEmbedUrl || '' %></textarea>
+          </div>
+        </div>
+
+        <!-- SEO -->
+        <div class="painel" id="secao-seo">
+          <h2>SEO</h2>
+          <div class="campo-admin">
+            <label>Título do site (tag title)</label>
+            <input type="text" name="siteTitle" value="<%= content.meta?.siteTitle || '' %>">
+          </div>
+          <div class="campo-admin">
+            <label>Meta descrição</label>
+            <textarea name="metaDescription" rows="3"><%= content.meta?.metaDescription || '' %></textarea>
+          </div>
+          <div class="campo-admin">
+            <label>Keywords (separadas por vírgula)</label>
+            <input type="text" name="keywords" value="<%= content.meta?.keywords || '' %>">
+          </div>
+          <div class="linha-campos">
+            <div class="campo-admin">
+              <label>Cidade</label>
+              <input type="text" name="cidade" value="<%= content.meta?.cidade || '' %>">
+            </div>
+            <div class="campo-admin">
+              <label>Estado (UF)</label>
+              <input type="text" name="estado" value="<%= content.meta?.estado || '' %>">
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="botao-admin salvar-flutuante">💾 Salvar todas as alterações</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="/js/admin.js"></script>
+  <script>
+    // Upload de fotos via fetch (sem recarregar)
+    ['uploadPerfil', 'uploadSobre'].forEach(function(id) {
+      var input = document.getElementById(id);
+      if (!input) return;
+      input.addEventListener('change', async function() {
+        var file = this.files[0];
+        if (!file) return;
+        var fd = new FormData();
+        fd.append('foto', file);
+        fd.append('campo', this.dataset.campo);
+        var resp = await fetch('/admin/upload', { method: 'POST', body: fd });
+        var data = await resp.json();
+        if (data.url) {
+          var preview = id === 'uploadPerfil'
+            ? document.getElementById('previewPerfil')
+            : document.getElementById('previewSobre');
+          if (preview) preview.src = data.url + '?t=' + Date.now();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

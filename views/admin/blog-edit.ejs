@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= artigo ? 'Editar Artigo' : 'Novo Artigo' %> | Painel Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <style>
+    /* ===== Layout da página ===== */
+    html { scroll-behavior: smooth; }
+
+    .pagina-artigo {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 24px 120px;
+    }
+
+    /* Grade principal: editor | sidebar */
+    .grade-editor {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* Sidebar fixa enquanto rola */
+    .sidebar-editor {
+      position: sticky;
+      top: 80px; /* altura do header */
+    }
+
+    /* ===== Botão salvar — fixo no rodapé ===== */
+    .rodape-form {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255,251,248,0.96);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--rosa-doce);
+      padding: 12px 24px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      z-index: 100;
+      max-width: 100%;
+    }
+
+    /* Espaço para o rodapé fixo não cobrir o conteúdo */
+    .spacer-rodape { height: 80px; }
+
+    /* ===== Editor Quill ===== */
+    .editor-wrapper {
+      border: 2px solid var(--rosa-doce);
+      border-radius: 12px;
+      overflow: hidden;
+      background: white;
+      transition: border-color 0.15s;
+    }
+    .editor-wrapper:focus-within { border-color: var(--rosa-profundo); }
+
+    /* Reset para o toolbar — evita herança do admin.css */
+    .ql-toolbar.ql-snow {
+      border: none !important;
+      border-bottom: 1px solid var(--rosa-doce) !important;
+      background: var(--rosa-nuvem);
+      padding: 8px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+    }
+    /* Isola box-sizing dos elementos do Quill */
+    .ql-toolbar.ql-snow * { box-sizing: content-box !important; }
+
+    /* Botões do toolbar */
+    .ql-toolbar.ql-snow button {
+      width: 30px !important;
+      height: 30px !important;
+      padding: 4px !important;
+      border-radius: 6px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      border: none !important;
+      background: transparent !important;
+      cursor: pointer !important;
+      margin: 1px !important;
+      font-family: var(--fonte-corpo) !important;
+      font-weight: 800 !important;
+      font-size: 0.72rem !important;
+      color: var(--grafite-suave) !important;
+      line-height: 1 !important;
+    }
+    .ql-toolbar.ql-snow button:hover {
+      background: var(--rosa-doce) !important;
+    }
+    .ql-toolbar.ql-snow button.ql-active {
+      background: var(--rosa-profundo) !important;
+      color: white !important;
+    }
+    .ql-toolbar.ql-snow button.ql-active .ql-stroke {
+      stroke: white !important;
+    }
+    .ql-toolbar.ql-snow button.ql-active .ql-fill {
+      fill: white !important;
+    }
+    /* Ícones SVG do Quill */
+    .ql-snow .ql-stroke { stroke: var(--grafite-suave); }
+    .ql-snow .ql-fill { fill: var(--grafite-suave); }
+
+    /* Botões H2 e H3 — esconde o SVG vazio e mostra label via data-label */
+    .ql-toolbar.ql-snow .ql-header svg { display: none !important; }
+    .ql-toolbar.ql-snow button.ql-header[value="2"]::after { content: 'H2'; }
+    .ql-toolbar.ql-snow button.ql-header[value="3"]::after { content: 'H3'; }
+
+    /* Separador entre grupos */
+    .ql-toolbar.ql-snow .ql-formats {
+      margin-right: 6px !important;
+      display: inline-flex;
+      gap: 2px;
+    }
+    .ql-toolbar.ql-snow .ql-formats + .ql-formats {
+      border-left: 1px solid var(--rosa-doce);
+      padding-left: 6px;
+    }
+
+    /* Área de edição */
+    .ql-container.ql-snow {
+      border: none !important;
+      font-family: var(--fonte-corpo) !important;
+      font-size: 1rem !important;
+      min-height: 340px;
+    }
+    .ql-editor {
+      padding: 18px !important;
+      color: var(--grafite-suave) !important;
+      line-height: 1.75 !important;
+    }
+    .ql-editor.ql-blank::before {
+      font-style: normal !important;
+      color: var(--grafite-medio) !important;
+    }
+    .ql-editor p { margin-bottom: 0.6em; }
+    .ql-editor h2 {
+      font-size: 1.35rem; font-weight: 700;
+      margin: 1.4em 0 0.5em;
+      color: var(--grafite-suave);
+      border-bottom: 2px solid var(--rosa-doce);
+      padding-bottom: 4px;
+    }
+    .ql-editor h3 {
+      font-size: 1.1rem; font-weight: 700;
+      margin: 1.2em 0 0.4em;
+      color: var(--grafite-suave);
+    }
+    .ql-editor blockquote {
+      border-left: 3px solid var(--rosa-flor);
+      margin: 1em 0; padding: 8px 16px;
+      background: var(--rosa-nuvem);
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+    }
+    .ql-editor a { color: var(--rosa-profundo); }
+    .ql-editor ul, .ql-editor ol { padding-left: 1.5em; }
+
+    /* ===== Upload de capa ===== */
+    .preview-capa {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      border-radius: 10px; background: var(--rosa-doce);
+      margin-bottom: 12px; display: block;
+    }
+    .area-upload-capa {
+      border: 2px dashed var(--rosa-flor); border-radius: 10px;
+      padding: 18px; text-align: center; cursor: pointer;
+      transition: background 0.2s; position: relative;
+    }
+    .area-upload-capa:hover { background: var(--rosa-nuvem); }
+    .area-upload-capa input[type=file] {
+      position: absolute; inset: 0; opacity: 0;
+      cursor: pointer; width: 100%; height: 100%;
+    }
+    .area-upload-capa p { margin: 0; color: var(--grafite-medio); font-size: 0.85rem; }
+    .area-upload-capa svg { color: var(--rosa-flor); margin-bottom: 6px; }
+
+    /* ===== Tags de categorias ===== */
+    .tag-input-wrapper {
+      display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+      border: 2px solid var(--rosa-doce); border-radius: 10px;
+      padding: 8px 12px; background: white; cursor: text;
+      min-height: 44px;
+    }
+    .tag-input-wrapper:focus-within { border-color: var(--rosa-profundo); }
+    .tag {
+      background: var(--rosa-doce); color: var(--rosa-profundo);
+      padding: 3px 10px; border-radius: 999px;
+      font-size: 0.8rem; font-weight: 700;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .tag button {
+      background: none; border: none; cursor: pointer;
+      color: var(--rosa-profundo); font-size: 1rem;
+      line-height: 1; padding: 0; width: auto; height: auto;
+    }
+    .tag-input {
+      border: none; outline: none;
+      font-family: var(--fonte-corpo); font-size: 0.9rem;
+      flex: 1; min-width: 80px; background: transparent;
+      padding: 0;
+    }
+
+    /* ===== Slug preview ===== */
+    .slug-preview { font-size: 0.78rem; color: var(--grafite-medio); margin-top: 4px; }
+    .slug-preview strong { color: var(--rosa-profundo); }
+
+    /* ===== Upload de mensagem ===== */
+    .uploading-msg {
+      font-size: 0.82rem; color: var(--grafite-medio);
+      margin-top: 6px; display: none;
+    }
+
+    /* ===== Painel da sidebar ===== */
+    .painel-sidebar {
+      background: var(--creme); border-radius: 16px;
+      padding: 18px; margin-bottom: 16px;
+      box-shadow: 0 4px 12px -8px rgba(74,59,63,0.12);
+    }
+    .painel-sidebar h4 {
+      font-family: var(--fonte-display);
+      margin: 0 0 14px; font-size: 1rem;
+      color: var(--grafite-suave);
+      border-bottom: 1px solid var(--rosa-doce);
+      padding-bottom: 10px;
+    }
+
+    /* ===== Responsivo ===== */
+    @media (max-width: 768px) {
+      .grade-editor { grid-template-columns: 1fr; }
+      .sidebar-editor { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topo-admin">
+    <div class="marca-admin">
+      <svg viewBox="0 0 40 40" fill="none" width="32" height="32">
+        <path d="M20 6c-6 0-10 3.5-10 10 0 6.5 2.5 10 3.5 15 .5 2.8 3.6 2.6 4.1 0 .5-2.6 1-5 2.4-5s1.9 2.4 2.4 5c.5 2.6 3.6 2.8 4.1 0C27.5 26 30 22.5 30 16c0-6.5-4-10-10-10Z" fill="#EE93AF"/>
+      </svg>
+      <span><%= artigo ? 'Editar Artigo' : 'Novo Artigo' %></span>
+    </div>
+    <div class="acoes-topo">
+      <a href="/admin/blog" class="botao-admin secundario">← Voltar ao Blog</a>
+      <% if (artigo) { %>
+        <a href="/blog/<%= artigo.slug %>/" class="botao-admin secundario" target="_blank">👁 Ver artigo</a>
+      <% } %>
+    </div>
+  </header>
+
+  <div class="pagina-artigo">
+
+    <% if (erro) { %>
+      <div class="alerta-erro" style="margin-bottom:20px">❌ <%= erro %></div>
+    <% } %>
+
+    <form id="formArtigo" action="/admin/blog/salvar" method="POST">
+      <!-- Campos ocultos -->
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <input type="hidden" name="slugOriginal" value="<%= artigo ? artigo.slug : '' %>">
+      <input type="hidden" name="content" id="hiddenContent">
+      <input type="hidden" name="categories" id="hiddenCategories">
+      <input type="hidden" name="coverImageAtual" id="hiddenCoverImage" value="<%= artigo ? artigo.coverImage : '' %>">
+
+      <div class="grade-editor">
+
+        <!-- ===== COLUNA PRINCIPAL ===== -->
+        <div>
+
+          <!-- Título -->
+          <div class="campo-admin">
+            <label for="title">Título do artigo <span style="color:var(--rosa-profundo)">*</span></label>
+            <input type="text" id="title" name="title"
+              value="<%= artigo ? artigo.title : '' %>"
+              placeholder="Ex: Quando levar o bebê ao dentista pela primeira vez?"
+              required>
+          </div>
+
+          <!-- Slug -->
+          <div class="campo-admin">
+            <label for="slug">
+              Slug (URL amigável) <span style="color:var(--rosa-profundo)">*</span>
+              <span style="font-weight:400; color:var(--grafite-medio); font-size:0.8rem; margin-left:4px">— gerado do título</span>
+            </label>
+            <input type="text" id="slug" name="slug"
+              value="<%= artigo ? artigo.slug : '' %>"
+              placeholder="quando-levar-o-bebe-ao-dentista"
+              required>
+            <p class="slug-preview">URL: <strong id="slugPreview">/blog/<%= artigo ? artigo.slug : 'seu-slug' %>/</strong></p>
+          </div>
+
+          <!-- Descrição -->
+          <div class="campo-admin">
+            <label for="description">Descrição / resumo <span style="color:var(--rosa-profundo)">*</span></label>
+            <textarea id="description" name="description" rows="3"
+              placeholder="Aparece nos cards do blog e nas meta tags (ideal: até 160 caracteres)"><%= artigo ? artigo.description : '' %></textarea>
+          </div>
+
+          <!-- Editor -->
+          <div class="campo-admin">
+            <label>Conteúdo do artigo <span style="color:var(--rosa-profundo)">*</span></label>
+            <div class="editor-wrapper">
+              <div id="quillEditor"></div>
+            </div>
+            <p class="ajuda" style="margin-top:6px">
+              <strong>H2</strong> para seções principais · <strong>H3</strong> para subseções · 
+              Use listas e citações para destacar informações importantes.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar-editor">
+
+          <!-- Imagem de capa -->
+          <div class="painel-sidebar">
+            <h4>🖼 Imagem de capa</h4>
+
+            <% if (artigo && artigo.coverImage) { %>
+              <img id="previewCapa" src="<%= artigo.coverImage %>" alt="Capa atual" class="preview-capa">
+            <% } else { %>
+              <img id="previewCapa" src="" alt="" class="preview-capa" style="display:none; background:var(--rosa-doce)">
+            <% } %>
+
+            <div class="area-upload-capa">
+              <input type="file" id="inputCapa" accept="image/*">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <p><strong>Clique para enviar</strong></p>
+              <p style="font-size:0.76rem; margin-top:2px">JPG, PNG, WebP · máx 5MB</p>
+            </div>
+            <p class="uploading-msg" id="uploadingMsg">⏳ Enviando...</p>
+
+            <div class="campo-admin" style="margin-top:12px; margin-bottom:0">
+              <label for="coverImageAlt" style="font-size:0.8rem">Texto alternativo (alt)</label>
+              <input type="text" id="coverImageAlt" name="coverImageAlt"
+                value="<%= artigo ? artigo.coverImageAlt : '' %>"
+                placeholder="Descreva a imagem para acessibilidade">
+            </div>
+          </div>
+
+          <!-- Metadados -->
+          <div class="painel-sidebar">
+            <h4>📋 Metadados</h4>
+
+            <div class="campo-admin">
+              <label for="date">Data de publicação</label>
+              <input type="date" id="date" name="date"
+                value="<%= artigo ? artigo.date : new Date().toISOString().split('T')[0] %>">
+            </div>
+
+            <div class="campo-admin" style="margin-bottom:0">
+              <label for="readingTimeMinutes">Tempo de leitura (min)</label>
+              <input type="number" id="readingTimeMinutes" name="readingTimeMinutes"
+                min="1" max="60"
+                value="<%= artigo ? artigo.readingTimeMinutes : 5 %>">
+            </div>
+          </div>
+
+          <!-- Categorias -->
+          <div class="painel-sidebar">
+            <h4>🏷 Categorias</h4>
+            <div class="tag-input-wrapper" id="tagWrapper">
+              <!-- Renderizado pelo JS -->
+            </div>
+            <p class="ajuda" style="margin-top:6px; font-size:0.8rem">
+              Digite e pressione <kbd>Enter</kbd> ou <kbd>,</kbd>
+            </p>
+          </div>
+
+        </aside>
+      </div><!-- fim grade-editor -->
+
+      <div class="spacer-rodape"></div>
+
+    </form>
+  </div>
+
+  <!-- Rodapé fixo com ações -->
+  <div class="rodape-form">
+    <button type="submit" form="formArtigo" class="botao-admin" style="width:auto; padding:12px 32px;">
+      💾 Salvar artigo
+    </button>
+    <a href="/admin/blog" style="color:var(--grafite-medio); font-size:0.9rem; text-decoration:none">Cancelar</a>
+    <% if (artigo) { %>
+      <a href="/blog/<%= artigo.slug %>/" target="_blank"
+        style="margin-left:auto; color:var(--rosa-profundo); font-weight:700; font-size:0.85rem; text-decoration:none">
+        👁 Pré-visualizar →
+      </a>
+    <% } %>
+  </div>
+
+  <!-- Quill -->
+  <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
+  <script>
+    // ===== Editor Quill =====
+    const quill = new Quill('#quillEditor', {
+      theme: 'snow',
+      placeholder: 'Escreva o conteúdo do artigo aqui...',
+      modules: {
+        toolbar: [
+          [{ header: 2 }, { header: 3 }],
+          ['bold', 'italic', 'underline'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['blockquote', 'link'],
+          ['clean'],
+        ],
+      },
+    });
+
+    // Carrega conteúdo existente
+    <% if (artigo && artigo.content) { %>
+      quill.root.innerHTML = <%- JSON.stringify(artigo.content) %>;
+    <% } %>
+
+    // ===== Tags de categorias =====
+    const categorias = <%- JSON.stringify(artigo ? (artigo.categories || []) : []) %>;
+    const tagWrapper  = document.getElementById('tagWrapper');
+    const hiddenCats  = document.getElementById('hiddenCategories');
+
+    function adicionarCategoria(val) {
+      const v = val.trim().replace(/,+$/, '');
+      if (v && !categorias.includes(v)) {
+        categorias.push(v);
+        renderTags();
+      }
+    }
+
+    function renderTags() {
+      tagWrapper.innerHTML = '';
+      hiddenCats.value = categorias.join(',');
+
+      categorias.forEach(cat => {
+        const span = document.createElement('span');
+        span.className = 'tag';
+        const label = document.createTextNode(cat + ' ');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = '×';
+        btn.setAttribute('aria-label', 'Remover ' + cat);
+        btn.onclick = () => {
+          categorias.splice(categorias.indexOf(cat), 1);
+          renderTags();
+        };
+        span.appendChild(label);
+        span.appendChild(btn);
+        tagWrapper.appendChild(span);
+      });
+
+      const inp = document.createElement('input');
+      inp.className = 'tag-input';
+      inp.placeholder = categorias.length ? '' : 'Ex: Bebês, Prevenção...';
+      inp.onkeydown = (e) => {
+        if (e.key === 'Enter' || e.key === ',') {
+          e.preventDefault();
+          adicionarCategoria(inp.value);
+          inp.value = '';
+        } else if (e.key === 'Backspace' && !inp.value && categorias.length) {
+          categorias.pop();
+          renderTags();
+        }
+      };
+      inp.onblur = () => {
+        if (inp.value.trim()) adicionarCategoria(inp.value);
+        inp.value = '';
+      };
+      tagWrapper.appendChild(inp);
+    }
+
+    // Clique no wrapper foca o input
+    tagWrapper.addEventListener('click', () => {
+      const inp = tagWrapper.querySelector('.tag-input');
+      if (inp) inp.focus();
+    });
+
+    renderTags();
+
+    // ===== Slug automático =====
+    const inputTitle = document.getElementById('title');
+    const inputSlug  = document.getElementById('slug');
+    const slugPreview = document.getElementById('slugPreview');
+
+    function slugify(str) {
+      return str.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9\s-]/g, '')
+        .trim().replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    }
+
+    let slugManual = <%= artigo ? 'true' : 'false' %>;
+
+    inputTitle.addEventListener('input', () => {
+      if (!slugManual) {
+        const s = slugify(inputTitle.value);
+        inputSlug.value = s;
+        slugPreview.textContent = '/blog/' + (s || 'seu-slug') + '/';
+      }
+    });
+
+    inputSlug.addEventListener('input', () => {
+      slugManual = true;
+      inputSlug.value = slugify(inputSlug.value) || inputSlug.value;
+      slugPreview.textContent = '/blog/' + (inputSlug.value || 'seu-slug') + '/';
+    });
+
+    // Preview inicial
+    if (!inputSlug.value) slugPreview.textContent = '/blog/seu-slug/';
+
+    // ===== Upload de imagem de capa =====
+    const inputCapa   = document.getElementById('inputCapa');
+    const previewCapa = document.getElementById('previewCapa');
+    const hiddenCover = document.getElementById('hiddenCoverImage');
+    const uploadMsg   = document.getElementById('uploadingMsg');
+
+    inputCapa.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      uploadMsg.style.display = 'block';
+      const fd = new FormData();
+      fd.append('imagem', file);
+      try {
+        const resp = await fetch('/admin/blog/upload-imagem', { method: 'POST', body: fd });
+        const data = await resp.json();
+        if (data.url) {
+          hiddenCover.value = data.url;
+          previewCapa.src = data.url;
+          previewCapa.style.display = 'block';
+        } else {
+          alert('Erro ao enviar: ' + (data.erro || 'desconhecido'));
+        }
+      } catch {
+        alert('Falha na conexão ao enviar imagem.');
+      } finally {
+        uploadMsg.style.display = 'none';
+      }
+    });
+
+    // ===== Submit — injeta conteúdo Quill =====
+    document.getElementById('formArtigo').addEventListener('submit', (e) => {
+      const conteudo = quill.root.innerHTML.trim();
+      if (!conteudo || conteudo === '<p><br></p>') {
+        e.preventDefault();
+        alert('O conteúdo do artigo não pode estar vazio.');
+        quill.focus();
+        return;
+      }
+      document.getElementById('hiddenContent').value = conteudo;
+      hiddenCats.value = categorias.join(',');
+    });
+  </script>
+</body>
+</html>

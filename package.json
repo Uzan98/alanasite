@@ -1,0 +1,25 @@
+{
+  "name": "odontopediatria-site",
+  "version": "2.0.0",
+  "description": "Site da Dra. Alana Chineider Librelon — Odontopediatria",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "set-password": "node scripts/set-admin-password.js",
+    "generate-blog": "node scripts/generate-blog-pages.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "express-session": "^1.18.0",
+    "helmet": "^7.1.0",
+    "multer": "^1.4.5-lts.1"
+  },
+  "allowScripts": {
+    "bcrypt@5.1.1": true
+  }
+}

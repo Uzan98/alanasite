@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Painel Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <div class="tela-login">
+    <div class="cartao-login">
+      <div class="logo-login">
+        <svg viewBox="0 0 40 40" fill="none" width="48" height="48">
+          <path d="M20 6c-6 0-10 3.5-10 10 0 6.5 2.5 10 3.5 15 .5 2.8 3.6 2.6 4.1 0 .5-2.6 1-5 2.4-5s1.9 2.4 2.4 5c.5 2.6 3.6 2.8 4.1 0C27.5 26 30 22.5 30 16c0-6.5-4-10-10-10Z" fill="#EE93AF"/>
+        </svg>
+        <h1 style="font-family:'Fredoka',sans-serif; margin-top:8px;">Painel Admin</h1>
+        <p>Dra. Alana Chineider Librelon</p>
+      </div>
+
+      <form method="POST" action="/admin/login">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+
+        <div class="campo">
+          <label for="username">Usuário</label>
+          <input type="text" id="username" name="username" autocomplete="username" required autofocus>
+        </div>
+
+        <div class="campo">
+          <label for="password">Senha</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required>
+        </div>
+
+        <% if (erro) { %>
+          <div class="alerta-erro"><%= erro %></div>
+        <% } %>
+
+        <button type="submit" class="botao-admin" style="margin-top:18px;">Entrar no painel</button>
+      </form>
+
+      <a href="/" class="link-voltar">← Voltar ao site</a>
+    </div>
+  </div>
+</body>
+</html>
