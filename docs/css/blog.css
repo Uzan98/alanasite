@@ -580,6 +580,56 @@
   margin-right: auto;
 }
 
+/* ---------- Botão de Compartilhar no Instagram Stories ---------- */
+
+.btn-compartilhar.instagram {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #fff;
+  border: none;
+  gap: 10px;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+
+.btn-compartilhar.instagram:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -6px rgba(220, 39, 67, 0.55);
+}
+
+.btn-compartilhar.instagram:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-compartilhar.instagram:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* Efeito shimmer no hover */
+.btn-compartilhar.instagram::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-15deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+
+.btn-compartilhar.instagram:hover::before {
+  left: 125%;
+}
+
+/* Ícone dentro do botão */
+.btn-compartilhar.instagram svg {
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
+}
+
 /* ---------- Responsividade ---------- */
 
 @media (max-width: 900px) {
